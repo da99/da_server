@@ -1,0 +1,3 @@
+
+reset
+run da_dev specs compile run
