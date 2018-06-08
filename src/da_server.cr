@@ -35,7 +35,7 @@ struct DA_Server
   end # === def initialize
 
   def listen
-    DA.orange! "=== Binding on: #{s.port}"
+    DA.orange! "=== Binding on: #{port}"
     server.bind
     DA.orange! "=== Starting server for: #{host}:#{port}"
 
