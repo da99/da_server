@@ -35,8 +35,12 @@ struct DA_Server
   end # === def initialize
 
   def listen
+    DA.orange! "=== Binding on: #{s.port}"
     server.bind
+    DA.orange! "=== Starting server for: #{host}:#{port}"
+
     if !ENV["IS_DEVELOPMENT"]? && `whoami`.strip != user
+      DA.orange! "=== Switching to user: #{user}"
       self.class.switch_user(user)
     end
     server.listen
