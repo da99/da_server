@@ -29,8 +29,6 @@ struct DA_Server
   end # === def initialize
 
   def initialize(@host, @port, handlers : Array(HTTP::Handler))
-    @host = ENV["IS_DEVELOPMENT"]? ? "127.0.0.1" : "0.0.0.0"
-    @port = ENV["IS_DEVELOPMENT"]? ? 4567 : 80
     @server = HTTP::Server.new(@host, @port, handlers)
   end # === def initialize
 
