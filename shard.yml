@@ -1,6 +1,6 @@
 ---
 name: da_server
-version: 0.1.5
+version: 0.1.6
 dependencies:
   da:
     github: da99/da
