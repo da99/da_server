@@ -31,7 +31,7 @@ struct DA_Server
     @server = HTTP::Server.new(@host, @port, handlers)
   end # === def initialize
 
-  def initialize(@host, @port, handlers : Array(HTTP::Handler))
+  def initialize(@host, @port, raw_handlers : Array(HTTP::Handler))
     handlers = [Secure_Headers.new] of HTTP::Handler
     handlers.concat raw_handlers
     @server = HTTP::Server.new(@host, @port, handlers)
