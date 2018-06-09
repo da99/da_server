@@ -20,21 +20,20 @@ struct DA_Server
 
   getter host   : String
   getter port   : Int32
-  getter user   : String = "www-deployer"
+  getter user   : String
   getter server : HTTP::Server
 
-  def initialize(raw_handlers : Array(HTTP::Handler))
-    @host = ENV["IS_DEVELOPMENT"]? ? "127.0.0.1" : "0.0.0.0"
-    @port = ENV["IS_DEVELOPMENT"]? ? 4567 : 80
-    handlers = [Secure_Headers.new] of HTTP::Handler
-    handlers.concat raw_handlers
-    @server = HTTP::Server.new(@host, @port, handlers)
-  end # === def initialize
-
-  def initialize(@host, @port, raw_handlers : Array(HTTP::Handler))
-    handlers = [Secure_Headers.new] of HTTP::Handler
-    handlers.concat raw_handlers
-    @server = HTTP::Server.new(@host, @port, handlers)
+  def initialize(
+    @host = "127.0.0.1",
+    @port = 4567,
+    @user = "www-deployer",
+    handlers : Array(HTTP::Handler) = [] of HTTP::Handler
+  )
+    @server = HTTP::Server.new(
+      @host,
+      @port,
+      ([Secure_Headers.new] of HTTP::Handler).concat(handlers)
+    )
   end # === def initialize
 
   def listen
