@@ -50,7 +50,7 @@ struct DA_Server
   def listen
     used = used_ports(port)
     if !used.empty?
-      STDERR.puts "!!! Found other processes: #{bin_name} service run:"
+      STDERR.puts "!!! Found other processes using port #{port}:"
       used.each { |l|
         STDERR.puts l
       }
