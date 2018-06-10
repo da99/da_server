@@ -40,7 +40,7 @@ struct DA_Server
     results = [] of String
     `ss -anp`.split('\n').each { |l|
       pieces = l.split
-      if pieces[4]? && pieces[4][/:#{i}$/]?
+      if pieces[1]? != "TIME-WAIT" && pieces[4]? && pieces[4][/:#{i}$/]?
           results << pieces.join(' ')
       end
     }
