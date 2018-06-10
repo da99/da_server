@@ -36,11 +36,24 @@ struct DA_Server
     )
   end # === def initialize
 
+  def used_ports(i : Int32)
+    results = [] of String
+    `ss -anp`.split('\n').each { |l|
+      pieces = l.split
+      if pieces[4]? && pieces[4][/:#{i}$/]?
+          results << pieces.join(' ')
+      end
+    }
+    results
+  end
+
   def listen
-    bin_name = File.basename(Process.executable_path.not_nil!)
-    old_procs = `pgrep -f "#{bin_name} service run"`.strip
-    if !old_procs.empty?
-      DA.exit_with_error!("!!! Found other processes: #{bin_name} service run: #{old_procs.split.join ' '}")
+    used = used_ports(port)
+    if !used.empty?
+      STDERR.puts "!!! Found other processes: #{bin_name} service run:"
+      used.each { |l|
+        STDERR.puts l
+      }
       exit 1
     end
 
