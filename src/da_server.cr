@@ -38,12 +38,7 @@ struct DA_Server
 
   def used_ports(i : Int32)
     results = [] of String
-    `ss -anp`.split('\n').each { |l|
-      pieces = l.split
-      if pieces[1]? != "TIME-WAIT" && pieces[4]? && pieces[4][/:#{i}$/]?
-          results << pieces.join(' ')
-      end
-    }
+    `ss --no-header -lnp -o state listening '( sport = :#{i} )'`.strip
     results
   end
 
@@ -51,9 +46,7 @@ struct DA_Server
     used = used_ports(port)
     if !used.empty?
       STDERR.puts "!!! Found other processes using port #{port}:"
-      used.each { |l|
-        STDERR.puts l
-      }
+      STDERR.puts used
       exit 1
     end
 
