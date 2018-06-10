@@ -38,14 +38,14 @@ struct DA_Server
 
   def listen
     DA.orange! "=== Binding on: #{port}"
-    server.bind
+    server.bind(false)
     DA.orange! "=== Starting server for: #{host}:#{port}"
 
     if !ENV["IS_DEVELOPMENT"]? && `whoami`.strip != user
       DA.orange! "=== Switching to user: #{user}"
       self.class.switch_user(user)
     end
-    server.listen
+    server.listen(false)
   end # === def listen
 
 end # === module DA_Server
