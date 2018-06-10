@@ -37,6 +37,13 @@ struct DA_Server
   end # === def initialize
 
   def listen
+    bin_name = File.basename(Process.executable_path.not_nil!)
+    old_procs = `pgrep -f "#{bin_name} service run"`.strip
+    if !old_procs.empty?
+      DA.exit_with_error!("!!! Found other processes: #{bin_name} service run: #{old_procs.split.join ' '}")
+      exit 1
+    end
+
     DA.orange! "=== Binding on: #{port}"
     server.bind(false)
     DA.orange! "=== Starting server for: #{host}:#{port}"
