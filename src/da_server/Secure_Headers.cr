@@ -9,6 +9,7 @@ struct DA_Server
       ctx.response.headers["X-XSS-Protection"]        = "1; mode=block"
       ctx.response.headers["X-Frame-Options"]         = "SAMEORIGIN;"
       ctx.response.headers["X-Content-Type"]          = "nosniff"
+      ctx.response.headers["X-DNS-Prefetch-Control"]  = "off"
 
       call_next(ctx)
     end # === def call
