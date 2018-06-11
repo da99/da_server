@@ -41,10 +41,10 @@ struct DA_Server
   end
 
   def listen
-    used = used_ports(port)
-    if !used.empty?
+    ports = used_ports
+    if !ports.empty?
       STDERR.puts "!!! Found other processes using port #{port}:"
-      STDERR.puts used
+      STDERR.puts ports
       exit 1
     end
 

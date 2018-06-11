@@ -47,4 +47,16 @@ describe "new(host, port, Array(HTTP::Handlers))" do
     assert s.user == "www-redirector"
   end # === it "sets users"
 
+  it "listens" do
+    if false
+      DA_Server.new(
+        host: "1.1.1.1",
+        port: 123,
+        user: "www-redirector",
+        handlers: [HTTP::StaticFileHandler.new("Public", false)]
+      ).listen
+    end
+    assert true == true
+  end # === it "listens"
+
 end # === desc "new"
