@@ -36,10 +36,8 @@ struct DA_Server
     )
   end # === def initialize
 
-  def used_ports(i : Int32)
-    results = [] of String
-    `ss --no-header -lnp -o state listening '( sport = :#{i} )'`.strip
-    results
+  def used_ports
+    `ss --no-header -lnp -o state listening '( sport = :#{port} )'`.strip
   end
 
   def listen
