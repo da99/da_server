@@ -1,6 +1,9 @@
 
 require "http/server"
 require "da"
+require "./da_server/File_Types"
+require "./da_server/No_Slash_Tail"
+require "./da_server/Public_Files"
 require "./da_server/Secure_Headers"
 
 lib LibC
@@ -9,6 +12,16 @@ lib LibC
 end
 
 struct DA_Server
+
+  def self.redirect_to(code : Int32, path : String, ctx)
+    ctx.response.status_code = code
+    ctx.response.headers["Location"] = path
+    ctx
+  end # === def redirect_to
+
+  def self.mime(path)
+    FILE_TYPES[File.extname(path)]? || "application/octet-stream"
+  end
 
   def self.switch_user(user : String)
     new_id = `id -u #{user}`.strip

@@ -13,6 +13,11 @@ struct DA_Server
 
     def call(ctx)
       new_path                         = clean_path(ctx.request.path)
+      if new_path.includes?('\0')
+        ctx.response.status_code = 400
+        return
+      end
+
       ctx.request.path                 = new_path
       ctx.request.headers["PATH_INFO"] = new_path
 
