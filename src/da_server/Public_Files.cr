@@ -41,8 +41,8 @@ struct DA_Server
 
       return call_next(ctx) if !File.file?(file_path)
 
-      last_modified = File.stat(file_path).mtime
-      ctx.response.headers["Last-Modified"] = HTTP.rfc1123_date(last_modified)
+      last_modified = File.info(file_path).modification_time
+      ctx.response.headers["Last-Modified"] = HTTP.format_time(last_modified)
       if_modified_since = ctx.request.headers["If-Modified-Since"]?
 
         if if_modified_since

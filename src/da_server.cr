@@ -39,12 +39,14 @@ struct DA_Server
   def initialize(
     @host = "127.0.0.1",
     @port = 4567,
-    @user = "www-deployer",
+    @user = `whoami`.strip,
     handlers : Array(HTTP::Handler) = [] of HTTP::Handler
   )
+    if !@user[/^[a-z0-9A-Z\.\-\_]+$/]
+      raise Exception.new("Invalid user: #{@user.inspect}")
+    end
+
     @server = HTTP::Server.new(
-      @host,
-      @port,
       ([Secure_Headers.new] of HTTP::Handler).concat(handlers)
     )
   end # === def initialize
@@ -61,15 +63,15 @@ struct DA_Server
       exit 1
     end
 
-    DA.orange! "=== Binding on: #{port}"
-    server.bind(false)
-    DA.orange! "=== Starting server for: #{host}:#{port}"
+    DA.orange! "=== Binding on: #{host}:#{port}"
+    server.bind_tcp host, port
 
-    if !ENV["IS_DEVELOPMENT"]? && `whoami`.strip != user
+    if !DA.is_development? && `whoami`.strip != user
       DA.orange! "=== Switching to user: #{user}"
       self.class.switch_user(user)
     end
-    server.listen(false)
+
+    server.listen
   end # === def listen
 
 end # === module DA_Server

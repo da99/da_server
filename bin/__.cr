@@ -1,5 +1,4 @@
 
-require "inspect_bang"
 require "../src/da_server"
 
 full_cmd = ARGV.map(&.strip).join(' ')
