@@ -26,7 +26,7 @@ struct DA_Server
   def self.switch_user(user : String)
     new_id = `id -u #{user}`.strip
     if new_id.empty?
-      DA.exit_with_error!("#{user} id not found")
+      DA.exit!("#{user} id not found")
     end
     LibC.setuid new_id.to_i32
   end
