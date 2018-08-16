@@ -66,7 +66,7 @@ struct DA_Server
     DA.orange! "=== Binding on: #{host}:#{port}"
     server.bind_tcp host, port
 
-    if !DA.is_development? && `whoami`.strip != user
+    if !DA.development? && `whoami`.strip != user
       DA.orange! "=== Switching to user: #{user}"
       self.class.switch_user(user)
     end
