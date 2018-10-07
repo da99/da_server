@@ -31,7 +31,7 @@ struct DA_Server
                          end
 
       ctx.response.headers["Content-Security-Policy"] = "script-src 'self';"
-      ctx.response.headers["X-Frame-Options"]         = "SAMEORIGIN;"
+      ctx.response.headers["X-Frame-Options"]         = "DENY;"
       ctx.response.headers["X-Content-Type"]          = "nosniff"
       ctx.response.headers["X-Content-Type-Options"]  = "nosniff"
       ctx.response.headers["X-DNS-Prefetch-Control"]  = "off"
