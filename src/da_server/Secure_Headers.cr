@@ -30,7 +30,7 @@ struct DA_Server
                            false
                          end
 
-      ctx.response.headers["Content-Security-Policy"] = "script-src 'self';"
+      ctx.response.headers["Content-Security-Policy"] = "script-src 'self'; frame-ancestors 'none'; default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';"
       ctx.response.headers["X-Frame-Options"]         = "DENY;"
       ctx.response.headers["X-Content-Type"]          = "nosniff"
       ctx.response.headers["X-Content-Type-Options"]  = "nosniff"
