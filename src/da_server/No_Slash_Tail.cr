@@ -13,7 +13,7 @@ struct DA_Server
       path = ctx.request.path
 
       if path.size > 2 && path.ends_with?('/') && !path.includes?('?')
-        new_path = File.dirname(path)
+        new_path = path.chomp('/')
         return DA_Server.redirect_to(redirect_code, new_path, ctx)
       end
 
