@@ -69,7 +69,7 @@ struct DA_Server
 
     private def redirect_to(ctx, url)
       ctx.response.status_code = 302
-      ctx.response.headers["Location"] = URI.escape(url) { |byte|
+      ctx.response.headers["Location"] = URI.encode(url) { |byte|
         URI.unreserved?(byte) || byte.chr == '/'
       }
       ctx
