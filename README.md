@@ -32,11 +32,10 @@ HTTP handlers included in this shard:
 - `Public_Files`
 - `Secure_Headers` (Hard-coded to be used as the first handler.)
 
-You can read the [source code here](https://github.com/da99/da_server/blob/master/src/da_server/Secure_Headers.cr).
+You can read the [handler source code here](https://github.com/da99/da_server/blob/master/src/da_server/Secure_Headers.cr).
 
 The only other thing included in the shard are singleton methods:
 
-- `.redirect_to`
+- `.redirect_to(Int32, path, ctx)`
 - `.mime(file.path.with.etc)`
-- `.switch_user` (when running as root user)
 
